@@ -42,7 +42,8 @@ app.post("/api/new-block", (req, res) => {
     fullBlock.block = JSON.parse(fullBlock.block);
     fullBlock.block.account = fullBlock.account;
     fullBlock.block.hash = fullBlock.hash;
-    fullBlock.block.amount = nano.convert.fromRaw(fullBlock.amount, "mrai");
+    fullBlock.block.amount =
+      nano.convert.fromRaw(fullBlock.amount, "mrai") * 10;
     saveHashTimestamp(fullBlock);
   } catch (err) {
     return console.log(`Error parsing block data! `, err.message);

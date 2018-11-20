@@ -10,10 +10,6 @@ const redisClient = redis.createClient();
 
 /** End Configuration **/
 
-// We don't actually need to talk to Nano, just need the converter
-const Nano = require("nanode").Nano;
-const nano = new Nano({ url: "http://localhost:9999" });
-
 const express = require("express");
 const WebSocketServer = require("uws").Server;
 const app = express();
@@ -42,7 +38,7 @@ app.post("/api/new-block", (req, res) => {
     fullBlock.block = JSON.parse(fullBlock.block);
     fullBlock.block.account = fullBlock.account;
     fullBlock.block.hash = fullBlock.hash;
-    fullBlock.block.amount = nano.convert.fromRaw(fullBlock.amount, "mrai");
+    fullBlock.block.amount = fullBlock.amount;
     saveHashTimestamp(fullBlock);
   } catch (err) {
     return console.log(`Error parsing block data! `, err.message);
